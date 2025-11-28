@@ -1,0 +1,26 @@
+apiVersion: "apps/v1" # Version of API being used
+kind: "Deployment"  # Creating a deployment
+metadata:
+  name: "synergychat-api"  # Name of Deployment
+  labels:
+    app: "synergychat-api"  # Apply an app label
+spec:
+  replicas: 1  # Number of pods
+  selector:
+    matchLabels:
+      app: "synergychat-api"  # Match the lable synergychat-api
+  template:
+    metadata:
+      labels:
+        app: "synergychat-api"  # Set the metadata app label to "synergychat-api"
+    spec:
+      containers:
+      - name: "synergychat-api"  # Name of the container, the - denotes that name and image are in a list
+        image: "bootdotdev/synergychat-api:latest"  # Image to use for the container
+        env:  # Set the environment variables for the container
+        - name: API_PORT  # For the ENV "API_PORT"
+          valueFrom:  # Get the value from
+            configMapKeyRef:  # A config map
+              name: synergychat-api-configmap  # Name of config-map to reference
+              key: API_PORT  # Key to get the value from
+        

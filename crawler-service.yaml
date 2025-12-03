@@ -1,0 +1,16 @@
+# Service that Listens on port 80
+# Forwards to pods listening on their port 8080
+# Continuously scans for pods that fall under "synergychat-crawler" and adds them to pool
+# Load balances across the pods
+apiVersion: v1
+kind: Service
+metadata:
+  name: crawler-service
+spec:
+  selector:
+    app: synergychat-crawler  # The Pods to route traffic to
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

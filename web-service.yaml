@@ -1,0 +1,15 @@
+# Service that Listens on port 80
+# Forwards to pods listening on their port 8080
+# Continuously scans for pods that fall under "synergychat-web" and adds them to pool
+# Load balances across the pods
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  selector:
+    app: synergychat-web  # The Pods to route traffic to
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

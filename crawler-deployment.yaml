@@ -1,0 +1,22 @@
+apiVersion: "apps/v1" # Version of API being used
+kind: "Deployment"  # Creating a deployment
+metadata:
+  name: "synergychat-crawler"  # Name of Deployment
+  labels:
+    app: "synergychat-crawler"  # Apply an app label
+spec:
+  replicas: 1  # Number of pods
+  selector:
+    matchLabels:
+      app: "synergychat-crawler"  # Match the lable synergychat-crawler
+  template:
+    metadata:
+      labels:
+        app: "synergychat-crawler"  # Set the metadata app label to "synergychat-crawler"
+    spec:
+      containers:
+      - name: "synergychat-crawler"  # Name of the container, the - denotes that name and image are in a list
+        image: "bootdotdev/synergychat-crawler:latest"  # Image to use for the container
+        envFrom:  # Set the environment variables for the pods from the env values within...
+          - configMapRef:  # The ConfigMap to get the env variables from
+              name: synergychat-crawler-configmap

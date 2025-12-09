@@ -1,0 +1,18 @@
+# Rule for the gateway
+apiVersion: gateway.networking.k8s.io/v1  # Indicates this is not a core part of K8s - it's like an extension
+kind: HTTPRoute
+metadata:
+  name: api-httproute
+spec:
+  parentRefs:
+    - name: app-gateway
+  hostnames:
+    - "synchatapi.internal"  # Traffic to synchatapi should be routed to...
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: api-service  # ...here
+          port: 80

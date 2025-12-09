@@ -1,0 +1,7 @@
+# Class to associate gateways with
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: app-gatewayclass
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller  # Set to the same as the gateway installed via envoy gateway
